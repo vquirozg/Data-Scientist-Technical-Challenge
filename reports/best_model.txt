@@ -1,0 +1,1 @@
+{'model': 'HistGradientBoosting', 'roc_auc': 0.8315849186044769, 'avg_precision': 0.6958151651172826, 'best_threshold': 0.19, 'best_profit': 63476.035, 'profit_at_t_0.2': 63150.340000000004}

@@ -1,39 +1,28 @@
-# Data-Scientist-Technical-Challenge Fraud Detection
-Technical test developed for Mercado Libre by Valeria Quiroz
-2025
 
+# Prevención de Fraude en Mercado Libre por Valeria Quiroz 
 
-Este proyecto fue desarrollado como parte de un proceso de selección para una posición de Data Scientist en Mercado Libre. El objetivo es construir un modelo de detección de fraude que combine precisión técnica y relevancia de negocio.
+Proyecto técnico desarrollado como parte del proceso de selección para Data Scientist en MELI.
 
-## Estructura del repositorio
+## Objetivo
+Predecir transacciones fraudulentas maximizando la ganancia de negocio por medio de deteccion de fraude con algoritmos de Machine Learning:
+Se parte de los siguientes supuestos
 
-- `notebooks/`: Exploración de datos y experimentación de modelos
-- `src/`: Scripts reutilizables para limpieza, ingeniería de features y entrenamiento
-- `data/`: Datos de entrada
-- `reports/`: Visualizaciones y métricas de negocio
-- `requirements.txt`: Dependencias del entorno
+- Transacción legítima aprobada → +25% del monto.
+- Transacción fraudulenta aprobada → −100% del monto.
+- Transacción rechazada → 0.
 
-##  Objetivo del proyecto
+##  Estructura
+- `data/` → dataset con los datos otorgados por la entidad.
+- `notebooks/` → exploración y experimentos (Jupyter/Colab).
+- `src/` → script reproducible con pipeline ML.
+- `reports/` →  métricas y resultados.
 
-- Detectar transacciones fraudulentas con modelos de Machine Learning
-- Evaluar los modelos de Machine Learning presentados
-- Presentar resultados de forma clara 
+## Instalación y ejecucion del proyecto
 
-## Tecnologías utilizadas
+Clonar el repositorio 
+```bash
+git clone https://github.com/vquirozg/Data-Scientist-Technical-Challenge.git
+cd fraude-prevencion-meli
+pip install -r requirements.txt
 
-- Python: pandas, scikit-learn, XGBoost, LightGBM, MLP
-- VS Code
-- GitHub para control de versiones
-
-## Métricas de desempeño
-
-- F1 Score, Precision, Recall
-- Costo financiero de falsos positivos y falsos negativos
-
-
-## Cómo ejecutar el proyecto
-
-1. Clona el repositorio:
-   ```bash
-   git clone https://github.com/vquirozg/Data-Scientist-Technical-Challenge.git
-   cd Data-Scientist-Technical-Challenge
+#uso python src/fraud_model_meli.py
