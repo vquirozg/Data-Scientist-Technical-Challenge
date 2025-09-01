@@ -1,3 +1,4 @@
+#librerias necesarias
 import os
 import numpy as np
 import pandas as pd
@@ -18,10 +19,14 @@ from sklearn.ensemble import RandomForestClassifier, GradientBoostingClassifier
 from sklearn.svm import SVC
 from sklearn.metrics import roc_curve, auc
 
+#Archivo de datos
+
 CSV_PATH = "data/fraud_dataset.csv"
 REPORTS_DIR = "reports"
 
 os.makedirs(REPORTS_DIR, exist_ok=True)
+
+#Funciones propias 
 
 def parse_monto(x):
     if pd.isna(x): return np.nan
@@ -50,7 +55,7 @@ def main():
     y = df["Fraude"].astype(int)
     X = df.drop(columns=["Fraude"])
 
-    # 2) Preprocesamiento
+    # 2) Preprocesamiento de datos
     num_cols = X.select_dtypes(include=["number"]).columns.tolist()
     cat_cols = X.select_dtypes(include=["object"]).columns.tolist()
 
@@ -62,11 +67,11 @@ def main():
 
     prep = ColumnTransformer([("num", num_tf, num_cols), ("cat", cat_tf, cat_cols)])
 
-    # 3) Split
+    # 3) Split Preparacion de datos para modelo
     X_tr, X_te, y_tr, y_te = train_test_split(X, y, test_size=0.25, random_state=42, stratify=y)
     amounts_te = X_te["Monto"].to_numpy()
 
-    # 4) Modelos
+    # 4) Modelos a entrenar 
     models = {
         "LogisticRegression": LogisticRegression(max_iter=1000, class_weight="balanced"),
         "HistGradientBoosting": HistGradientBoostingClassifier(random_state=42), 
@@ -85,7 +90,7 @@ def main():
         pipe.fit(X_tr, y_tr)
         p = pipe.predict_proba(X_te)[:, 1]
 
-        # Métricas
+        # Métricas de evaluacion 
         auc = roc_auc_score(y_te, p)
         ap = average_precision_score(y_te, p)
 
@@ -105,7 +110,7 @@ def main():
             "profit_at_t_0.2": float(profit_at_threshold(y_te.to_numpy(), p, 0.2, amounts_te))
         })
 
-        # Reportes
+        # Reportes matriz de confusion 
         y_pred_best = (p >= t_best).astype(int)
         cm = confusion_matrix(y_te, y_pred_best, labels=[0, 1])
         cm_df = pd.DataFrame(cm,
@@ -116,7 +121,7 @@ def main():
         with open(f"{REPORTS_DIR}/classification_report_{name}.txt", "w") as f:
             f.write(classification_report(y_te, y_pred_best, digits=4))
 
-        # Figuras
+        # Graficos 
         fpr, tpr, _ = roc_curve(y_te, p)
         prec, rec, _ = precision_recall_curve(y_te, p)
 
@@ -135,6 +140,8 @@ def main():
         plt.title("Ganancia vs. Umbral"); plt.xlabel("Umbral"); plt.ylabel("Ganancia total (validación)")
         plt.savefig(f"{REPORTS_DIR}/profit_curve.png", bbox_inches="tight"); plt.close()
 
+
+    #Guardamos los resultados del modelo
     results = pd.DataFrame(rows).sort_values(by="best_profit", ascending=False)
     results.to_csv(f"{REPORTS_DIR}/model_results.csv", index=False)
 
