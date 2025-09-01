@@ -19,6 +19,9 @@ Se parte de los siguientes supuestos
 
 ## Instalación y ejecucion del proyecto
 
+Los pasos para ejecucion del scrip son> clonar el repositorio > luego instalar los requerimientos o librerias necesarias > ejecutar. Cada comando es mencionado a continuacion
+
+
 Clonar el repositorio 
 ```bash
 git clone https://github.com/vquirozg/Data-Scientist-Technical-Challenge.git
