@@ -22,7 +22,7 @@ Se parte de los siguientes supuestos
 Clonar el repositorio 
 ```bash
 git clone https://github.com/vquirozg/Data-Scientist-Technical-Challenge.git
-cd fraude-prevencion-meli
+cd fraud_model_meli
 pip install -r requirements.txt
 
 #uso python src/fraud_model_meli.py

@@ -14,6 +14,9 @@ from sklearn.metrics import (
 from sklearn.linear_model import LogisticRegression
 from sklearn.ensemble import HistGradientBoostingClassifier
 import matplotlib.pyplot as plt
+from sklearn.ensemble import RandomForestClassifier, GradientBoostingClassifier
+from sklearn.svm import SVC
+from sklearn.metrics import roc_curve, auc
 
 CSV_PATH = "data/fraud_dataset.csv"
 REPORTS_DIR = "reports"
@@ -66,7 +69,12 @@ def main():
     # 4) Modelos
     models = {
         "LogisticRegression": LogisticRegression(max_iter=1000, class_weight="balanced"),
-        "HistGradientBoosting": HistGradientBoostingClassifier(random_state=42)
+        "HistGradientBoosting": HistGradientBoostingClassifier(random_state=42), 
+    "RandomForest": RandomForestClassifier(
+        n_estimators=200, max_depth=None, random_state=42, n_jobs=-1, class_weight="balanced_subsample"
+    ),
+    "GradientBoosting": GradientBoostingClassifier(random_state=42),
+    "SVM": SVC(kernel="rbf", probability=True, class_weight="balanced", random_state=42),
     }
 
     rows = []
